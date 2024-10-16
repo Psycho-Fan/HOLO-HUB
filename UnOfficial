@@ -85,8 +85,8 @@ local walkSpeedToggle = LocalPlayerTab:CreateToggle({
          speedSlider:Unlock("Slider unlocked!") -- Unlock the slider when toggle is enabled
          setSpeed(BloxValue.Value) -- Set speed to current value
       else
-         speedSlider:Lock("Slider locked!") -- Lock the slider when toggle is disabled
          setSpeed(16) -- Reset to default speed when disabled
+         speedSlider:Lock("Slider locked!") -- Lock the slider when toggle is disabled
       end
    end
 })
