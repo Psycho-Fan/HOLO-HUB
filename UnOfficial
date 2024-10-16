@@ -114,7 +114,7 @@ local PetRNGTab = Window:CreateTab("Pet RNG/GO")
 
 -- Button to execute "Pet RNG/GO" script
 PetRNGTab:CreateButton({
-   Name = "Execute Pet RNG/GO Script",
+   Name = "LuminHub Script",
    Info = "Load and execute the script",
    Callback = function()
        loadstring(game:HttpGet("http://lumin-hub.lol/PET.lua"))()
