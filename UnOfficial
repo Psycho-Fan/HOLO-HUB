@@ -100,6 +100,15 @@ LocalPlayerTab:CreateToggle({
    end
 })
 
+-- Button for Reload
+LocalPlayerTab:CreateButton({
+   Name = "Reload Script",
+   SectionParent = ReloadSection,
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/Psycho-Fan/HOLO-HUB/refs/heads/main/UnOfficial"))()
+   end
+})
+
 -- "Pet RNG/GO" tab
 local PetRNGTab = Window:CreateTab("Pet RNG/GO")
 
@@ -124,11 +133,3 @@ DevasTab:CreateButton({
    end
 })
 
--- Button for Reload
-LocalPlayerTab:CreateButton({
-   Name = "Reload Script",
-   SectionParent = ReloadSection,
-   Callback = function()
-       loadstring(game:HttpGet("https://raw.githubusercontent.com/Psycho-Fan/HOLO-HUB/refs/heads/main/UnOfficial"))()
-   end
-})
