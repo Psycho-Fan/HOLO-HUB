@@ -48,9 +48,6 @@ end)
 -- "LocalPlayer" tab
 local LocalPlayerTab = Window:CreateTab("Local Player")
 
--- "Reload" section
-local ReloadSection = LocalPlayerTab:CreateSection("Reload Script", false)
-
 -- "Speed Control" section
 local SpeedSection = LocalPlayerTab:CreateSection("Speed Control", false)
 
@@ -100,6 +97,16 @@ LocalPlayerTab:CreateToggle({
    end
 })
 
+-- Add the reload script button to LocalPlayer
+LocalPlayerTab:CreateButton({
+   Name = "Reload Script",
+   Info = "Reload the main script",
+   Callback = function()
+      -- Inject the new script from the provided URL
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Psycho-Fan/HOLO-HUB/refs/heads/main/UnOfficial"))()
+   end
+})
+
 -- "Pet RNG/GO" tab
 local PetRNGTab = Window:CreateTab("Pet RNG/GO")
 
@@ -119,15 +126,6 @@ local DevasTab = Window:CreateTab("Devas Of Creation")
 DevasTab:CreateButton({
    Name = "Autofarm (One-time Activation)",
    Info = "Activates the autofarm (only once)",
-   Callback = function()
-       loadstring(game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/devas%20creation%20UD%20autofarm"))()
-   end
-})
-
--- Button for Reload
-LocalPlayerTab:CreateButton({
-   Name = "Reload Script",
-   SectionParent = ReloadSection,
    Callback = function()
        loadstring(game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/devas%20creation%20UD%20autofarm"))()
    end
