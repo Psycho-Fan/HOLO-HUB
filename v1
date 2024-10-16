@@ -1,0 +1,122 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Psycho-Fan/ui/refs/heads/main/holo.lua'))()
+
+-- Create the main window
+local Window = Rayfield:CreateWindow({
+   Name = "Holo Hub",
+   LoadingTitle = "Welcome to Holo Hub",
+   LoadingSubtitle = "Script Interface",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil,
+      FileName = "HoloHubConfig"
+   },
+   KeySystem = false,  -- Key system disabled
+   KeySettings = {
+      Title = "Holo Hub Key System",
+      Subtitle = "Enter your key to access",
+      Note = "Get your key from the provided URL",
+      FileName = "HoloHubKeyFile",
+      SaveKey = true,
+      GrabKeyFromSite = true,
+      Key = "https://pastebin.com/raw/9hRtBcu5"
+   }
+})
+
+-- Speed value storage for the player
+local BloxValue = Instance.new("IntValue")
+BloxValue.Name = "SpeedValue"
+BloxValue.Value = 100 -- Default speed value
+BloxValue.Parent = game.Players.LocalPlayer
+
+-- Variable controlling speed toggle state
+getgenv().Enabled = false
+getgenv().InfiniteJumpEnabled = false -- Variable for infinite jump toggle
+
+-- Function to set player speed
+local function setSpeed(speed)
+    getgenv().Speed = speed
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/eclipsology/SimpleSpeed/main/SimpleSpeed.lua"))()
+end
+
+-- Infinite jump functionality
+game:GetService("UserInputService").JumpRequest:connect(function()
+    if getgenv().InfiniteJumpEnabled then
+        game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
+    end
+end)
+
+-- "LocalPlayer" tab
+local LocalPlayerTab = Window:CreateTab("Local Player")
+
+-- "Speed Control" section
+local SpeedSection = LocalPlayerTab:CreateSection("Speed Control", false)
+
+-- "Infinity Jump" section
+local InfinityJumpSection = LocalPlayerTab:CreateSection("Infinity Jump", false)
+
+-- Speed slider (initially locked)
+local speedSlider = LocalPlayerTab:CreateSlider({
+   Name = "Walk Speed",
+   Info = "Adjust walk speed between 16 and 350",
+   SectionParent = SpeedSection,
+   Range = {16, 350},
+   Increment = 1,
+   CurrentValue = 16,
+   Callback = function(value)
+      BloxValue.Value = value -- Update speed value
+      if getgenv().Enabled then
+         setSpeed(BloxValue.Value) -- Set speed when toggle is enabled
+      end
+   end
+})
+speedSlider:Lock("Speed slider is locked by default") -- Lock the slider by default
+
+-- Toggle for walk speed bypass with lock/unlock for the slider
+local walkSpeedToggle = LocalPlayerTab:CreateToggle({
+   Name = "Toggle Walk Speed",
+   Info = "Enable or disable walk speed bypass",
+   SectionParent = SpeedSection,
+   Callback = function(state)
+      getgenv().Enabled = state
+      if state then
+         speedSlider:Unlock("Slider unlocked!") -- Unlock the slider when toggle is enabled
+         setSpeed(BloxValue.Value) -- Set speed to current value
+      else
+         speedSlider:Lock("Slider locked!") -- Lock the slider when toggle is disabled
+         setSpeed(16) -- Reset to default speed when disabled
+      end
+   end
+})
+
+-- Toggle for infinite jump
+LocalPlayerTab:CreateToggle({
+   Name = "Toggle Infinity Jump",
+   SectionParent = InfinityJumpSection,
+   Callback = function(state)
+      getgenv().InfiniteJumpEnabled = state -- Set infinite jump state
+   end
+})
+
+-- "Pet RNG/GO" tab
+local PetRNGTab = Window:CreateTab("Pet RNG/GO")
+
+-- Button to execute "Pet RNG/GO" script
+PetRNGTab:CreateButton({
+   Name = "Execute Pet RNG/GO Script",
+   Info = "Load and execute the script",
+   Callback = function()
+       loadstring(game:HttpGet("http://lumin-hub.lol/PET.lua"))()
+   end
+})
+
+-- "Devas Of Creation" tab
+local DevasTab = Window:CreateTab("Devas Of Creation")
+
+-- Button for Devas Of Creation autofarm
+DevasTab:CreateButton({
+   Name = "Autofarm (One-time Activation)",
+   Info = "Activates the autofarm (only once)",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/devas%20creation%20UD%20autofarm"))()
+   end
+})
