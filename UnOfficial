@@ -10,7 +10,7 @@ local Window = Rayfield:CreateWindow({
       FolderName = nil,
       FileName = "HoloHubConfig"
    },
-   KeySystem = false,  -- Key system disabled
+   KeySystem = true,  -- Key system disabled
    KeySettings = {
       Title = "Holo Hub Key System",
       Subtitle = "Enter your key to access",
@@ -133,3 +133,13 @@ DevasTab:CreateButton({
    end
 })
 
+-- "Swim League" tab
+local SwimLeagueTab = Window:CreateTab("SwimLeague")
+
+-- Button for Swim League
+SwimLeagueTab:CreateButton({
+   Name = "BeeconHub Script",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()
+   end
+})
