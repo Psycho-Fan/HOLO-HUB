@@ -10,15 +10,20 @@ local Window = Rayfield:CreateWindow({
       FolderName = nil,
       FileName = "HoloHubConfig"
    },
-   KeySystem = false,  -- Key system disabled
+   Discord = {
+      Enabled = true,
+      Invite = "EUqpcZ4UME", -- The Discord invite code, do not include discord.gg/
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = true,  -- Key system disabled
    KeySettings = {
       Title = "Holo Hub Key System",
       Subtitle = "Enter your key to access",
-      Note = "Get your key from the provided URL",
+      Note = "Get your key from the discord!",
       FileName = "HoloHubKeyFile",
       SaveKey = true,
       GrabKeyFromSite = true,
-      Key = "https://pastebin.com/raw/9hRtBcu5"
+      Key = "https://pastebin.com/raw/THB6mrsN"
    }
 })
 
@@ -47,6 +52,9 @@ end)
 
 -- "LocalPlayer" tab
 local LocalPlayerTab = Window:CreateTab("Local Player")
+
+-- "Reload" section
+local ReloadSection = LocalPlayerTab:CreateSection("Reload Script", false)
 
 -- "Speed Control" section
 local SpeedSection = LocalPlayerTab:CreateSection("Speed Control", false)
@@ -82,8 +90,8 @@ local walkSpeedToggle = LocalPlayerTab:CreateToggle({
          speedSlider:Unlock("Slider unlocked!") -- Unlock the slider when toggle is enabled
          setSpeed(BloxValue.Value) -- Set speed to current value
       else
-         speedSlider:Lock("Slider locked!") -- Lock the slider when toggle is disabled
          setSpeed(16) -- Reset to default speed when disabled
+         speedSlider:Lock("Slider locked!") -- Lock the slider when toggle is disabled
       end
    end
 })
@@ -102,7 +110,7 @@ local PetRNGTab = Window:CreateTab("Pet RNG/GO")
 
 -- Button to execute "Pet RNG/GO" script
 PetRNGTab:CreateButton({
-   Name = "Execute Pet RNG/GO Script",
+   Name = "LuminHub Script",
    Info = "Load and execute the script",
    Callback = function()
        loadstring(game:HttpGet("http://lumin-hub.lol/PET.lua"))()
@@ -118,5 +126,16 @@ DevasTab:CreateButton({
    Info = "Activates the autofarm (only once)",
    Callback = function()
        loadstring(game:HttpGet("https://raw.githubusercontent.com/cnzins1/scripts/main/devas%20creation%20UD%20autofarm"))()
+   end
+})
+
+-- "Swim League" tab
+local SwimLeagueTab = Window:CreateTab("SwimLeague")
+
+-- Button for Swim League
+SwimLeagueTab:CreateButton({
+   Name = "BeeconHub Script",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()
    end
 })
